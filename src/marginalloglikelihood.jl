@@ -12,6 +12,6 @@ function marginalloglikelihood(α ; x̄ = x̄, y = y, σ = σ, ρ = ρ)
 
     end
 
-    logℓ
+    return logℓ
 
 end
