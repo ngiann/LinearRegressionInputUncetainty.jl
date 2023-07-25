@@ -16,14 +16,24 @@ let
 
     m(α) =  marginalloglikelihood(α; x̄ = x̄, y = y, σ = σ, r = r) # auxiliary function
 
+
     αrange = -7:0.01:7
 
     logprob = m.(αrange)
 
     prob = exp.(logprob .- logsumexp(logprob))
 
-    plot(αrange, prob, ticks = -7:1:7)
+    plot(αrange, prob, ticks = -7:1:7, label="account noise in x")
     
+
+    musual(α) = marginalloglikelihood_usual(α; x̄ = x̄, y = y, σ = σ, r = r)
+
+    logprobsual = musual.(αrange)
+
+    probsual = exp.(logprobsual .- logsumexp(logprobsual))
+
+    plot!(αrange, probsual, ticks = -7:1:7, color = "red", label="discard noise in x")
+
 end
 
 
