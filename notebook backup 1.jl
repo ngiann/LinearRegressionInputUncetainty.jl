@@ -33,7 +33,7 @@ html"""
 
 
 # ╔═╡ 4e0474ad-3535-452b-93a5-fd35dc7e4d3c
-md"""# Example"""
+md"""# Example 1"""
 
 # ╔═╡ 3ad7e776-9e6e-4162-8a11-164da6b975a0
 md"""Top slider controls σ, bottom slider controls r"""
@@ -68,7 +68,7 @@ let
 end
 
 # ╔═╡ d90e32f3-478d-4744-bc58-c0047bd828ef
-md"""## Example with VI (slow)"""
+md"""## Example with VI"""
 
 # ╔═╡ c3d3390e-9e56-4199-85b1-87dc592760e3
 @bind σvi Slider(0.01:0.05:2.0, show_value=true)
@@ -78,43 +78,13 @@ md"""## Example with VI (slow)"""
 
 # ╔═╡ 464927ea-b6e6-44d0-9e46-51b1ebe79f65
 let 
-	x̄, y, _, rvi = simulatemeasurements(σ = σvi, r₀ = r₀vi); # generate toy data
-
-	m(α) =  marginalloglikelihood(α; x̄ = x̄, y = y, σ = σvi, r = rvi) # auxiliary
+	x̄, y, _, r = simulatemeasurements(σ = σvi, r₀ = r₀vi); # generate toy data
 	
-	m2(p) = marginalloglikelihood(p[1],p[2]; x̄ = x̄, y = y, σ = σvi, r = rvi) # auxiliary
-
-	q, = VI(m2, randn(2), S=100, iterations = 100, gradientmode = :forward)
-
-	
-	αrange = -7:0.02:7
-
-    logprob = m.(αrange)
-
-    prob = exp.(logprob .- logsumexp(logprob))
-
-	
-	# plot data
-	plot(legend=false)
-	p1 = scatter(x̄, y, title="data", xlims=[-6; 6], ylims=[-9, 10], size=(1000,500))
-
-	# plot sampled lines
-	xrange = -6:3:6
-	for n in 1:100
-		
-		α, β = rand(q)
-		plot!(xrange, α*xrange .+ β, color="blue", alpha=0.2, legend=false)
-
-	end
-	plot!(xrange, 2*xrange .+ 1, color="red", legend=false, linewidth=4)
-	
-	# plot posterior slope
-    p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500))
+	marginalloglikelihood(1,2; x̄ = x̄, y = y, σ = σvi, r = r₀vi) # auxiliary
 
 
-	# arrange plots next to each other
-	plot(p1, p2, layout = (1,2))
-	
+    
+
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -130,8 +100,8 @@ StatsFuns = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
 [compat]
 Distributions = "~0.25.98"
 GaussianVariationalInference = "~0.2.3"
-LinearRegressionInputUncetainty = "~0.0.2"
-Plots = "~1.38.17"
+LinearRegressionInputUncetainty = "~0.0.1"
+Plots = "~1.38.16"
 PlutoUI = "~0.7.52"
 StatsFuns = "~1.3.0"
 """
@@ -142,7 +112,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.0"
 manifest_format = "2.0"
-project_hash = "2c8bed1f0c00f5aaeaed1ae092b7d0dbb4d1c8e1"
+project_hash = "d07dfdb9e893c45af0f63c371d0cec240a9dc348"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -314,9 +284,9 @@ version = "0.3.0"
 
 [[deps.Compat]]
 deps = ["UUIDs"]
-git-tree-sha1 = "5ce999a19f4ca23ea484e92a1774a61b8ca4cf8e"
+git-tree-sha1 = "4e88377ae7ebeaf29a047aa1ee40826e0b708a5d"
 uuid = "34da2185-b29b-5c13-b0c7-acf172513d20"
-version = "4.8.0"
+version = "4.7.0"
 weakdeps = ["Dates", "LinearAlgebra"]
 
     [deps.Compat.extensions]
@@ -835,9 +805,9 @@ version = "0.2.1"
 
 [[deps.LinearRegressionInputUncetainty]]
 deps = ["Distributions", "LinearAlgebra", "LinearRegression", "Plots", "Printf", "QuadGK", "Random", "Statistics", "StatsFuns"]
-git-tree-sha1 = "4081c8fd32dd08e4ae6ec5863cfec310d1fe122a"
+git-tree-sha1 = "8a0cba22159981e306f8b0621de7e5842d33fa0e"
 uuid = "c977da63-dc55-4e90-9e9d-5cb77bb2d17a"
-version = "0.0.2"
+version = "0.0.1"
 
 [[deps.LogExpFunctions]]
 deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
@@ -1034,9 +1004,9 @@ version = "1.3.5"
 
 [[deps.Plots]]
 deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "PrecompileTools", "Preferences", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "UnitfulLatexify", "Unzip"]
-git-tree-sha1 = "9f8675a55b37a70aa23177ec110f6e3f4dd68466"
+git-tree-sha1 = "75ca67b2c6512ad2d0c767a7cfc55e75075f8bbc"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "1.38.17"
+version = "1.38.16"
 
     [deps.Plots.extensions]
     FileIOExt = "FileIO"
@@ -1645,7 +1615,7 @@ version = "1.4.1+0"
 
 # ╔═╡ Cell order:
 # ╟─2c44261d-a5a6-4a14-b9f4-1b21641afdf1
-# ╟─d2cc0522-2add-11ee-3e3b-e7dbe9ebca8d
+# ╠═d2cc0522-2add-11ee-3e3b-e7dbe9ebca8d
 # ╟─c4458d1b-563d-4a38-9156-f7f7032ffcf0
 # ╟─0b20e660-2e4a-40ad-a494-f8defa1a2513
 # ╟─4e0474ad-3535-452b-93a5-fd35dc7e4d3c
@@ -1654,8 +1624,8 @@ version = "1.4.1+0"
 # ╟─edbb5da1-f49f-46c7-88b6-eee308bcbaea
 # ╟─aac2fe01-def9-4b7b-b8f8-5a1a78b7aad6
 # ╟─d90e32f3-478d-4744-bc58-c0047bd828ef
-# ╟─c3d3390e-9e56-4199-85b1-87dc592760e3
-# ╟─ef25a426-81c8-4817-bf35-54c31319acfc
+# ╠═c3d3390e-9e56-4199-85b1-87dc592760e3
+# ╠═ef25a426-81c8-4817-bf35-54c31319acfc
 # ╟─464927ea-b6e6-44d0-9e46-51b1ebe79f65
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

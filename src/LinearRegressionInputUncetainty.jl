@@ -10,6 +10,6 @@ module LinearRegressionInputUncetainty
     export testintegral
 
     export simulatemeasurements, simulatemeasurements_unknown_ρ
-    export marginalloglikelihood
+    export marginalloglikelihood, marginalloglikelihood_usual
 
 end
