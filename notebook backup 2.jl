@@ -57,20 +57,10 @@ let
     prob = exp.(logprob .- logsumexp(logprob))
 
 	# plot data
-	p1 = scatter(x̄, y, xlims=[-6; 6], ylims=[-9, 10], size=(1000,500), legend = false)
+	p1 = scatter(x̄, y, title="data", xlims=[-6; 6], ylims=[-9, 10], size=(1000,500))
 
 	# plot posterior slope
-    p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500), label = "account noise in x")
-
-	let 
-		musual(α) = marginalloglikelihood_usual(α; x̄ = x̄, y = y, σ = σ, r = r)
-		
-		logprobsual = musual.(αrange)
-		
-		probsual = exp.(logprobsual .- logsumexp(logprobsual))
-		
-		plot!(αrange, probsual, ticks = -7:1:7, color = "red", label="discard noise in x")
-	end
+    p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500))
 
 	# arrange plots next to each other
 	plot(p1, p2, layout = (1,2))
@@ -106,7 +96,7 @@ let
 	
 	# plot data
 	plot(legend=false)
-	p1 = scatter(x̄, y, xlims=[-6; 6], ylims=[-9, 10], size=(1000,500))
+	p1 = scatter(x̄, y, title="data", xlims=[-6; 6], ylims=[-9, 10], size=(1000,500))
 
 	# plot sampled lines
 	xrange = -6:3:6
@@ -116,12 +106,10 @@ let
 		plot!(xrange, α*xrange .+ β, color="blue", alpha=0.2, legend=false)
 
 	end
-
-	# plot true line
-	plot!(xrange, 2*xrange .+ 1, color="black", linewidth=4, label="true")
-		
+	plot!(xrange, 2*xrange .+ 1, color="red", legend=false, linewidth=4)
+	
 	# plot posterior slope
-	p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500))
+    p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500))
 
 
 	# arrange plots next to each other
@@ -142,7 +130,7 @@ StatsFuns = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
 [compat]
 Distributions = "~0.25.98"
 GaussianVariationalInference = "~0.2.3"
-LinearRegressionInputUncetainty = "~0.0.3"
+LinearRegressionInputUncetainty = "~0.0.2"
 Plots = "~1.38.17"
 PlutoUI = "~0.7.52"
 StatsFuns = "~1.3.0"
@@ -154,7 +142,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.0"
 manifest_format = "2.0"
-project_hash = "8cb44e8554e05a4c3e74e4e82b0bb6ae87aac0b5"
+project_hash = "2c8bed1f0c00f5aaeaed1ae092b7d0dbb4d1c8e1"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -847,9 +835,9 @@ version = "0.2.1"
 
 [[deps.LinearRegressionInputUncetainty]]
 deps = ["Distributions", "LinearAlgebra", "LinearRegression", "Plots", "Printf", "QuadGK", "Random", "Statistics", "StatsFuns"]
-git-tree-sha1 = "e22fc5ca7d4d17c36e62f33b1901561fce614253"
+git-tree-sha1 = "4081c8fd32dd08e4ae6ec5863cfec310d1fe122a"
 uuid = "c977da63-dc55-4e90-9e9d-5cb77bb2d17a"
-version = "0.0.3"
+version = "0.0.2"
 
 [[deps.LogExpFunctions]]
 deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
