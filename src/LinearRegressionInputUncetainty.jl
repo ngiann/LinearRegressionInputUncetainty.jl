@@ -1,13 +1,15 @@
 module LinearRegressionInputUncetainty
 
-    using LinearRegression, Random, Distributions, Plots
+    using LinearRegression, Random, Distributions, Plots, QuadGK, LinearAlgebra
 
     include("simulatemeasurement.jl")
     include("simulatemeasurements_unknown_ρ.jl")
-    include("simulatemanymeasurements.jl")
     include("marginalloglikelihood.jl")
 
-    export simulatemeasurements, simulatemeasurements_unknown_ρ, simulatemanymeasurements
+    include("testintegral.jl")
+    export testintegral
+
+    export simulatemeasurements, simulatemeasurements_unknown_ρ
     export marginalloglikelihood
 
 end

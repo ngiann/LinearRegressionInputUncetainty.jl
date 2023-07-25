@@ -1,28 +1,27 @@
-function simulatemeasurements(; seed = 1)
+function simulatemeasurements(; σ = 0.5, r₀ = 0.5, seed = 1)
 
     rg = MersenneTwister(seed) # fix random number generator
 
     # parameters of underlying idealised data source
-    
+    N = 10
     α = 2.0 # slope
     β = 1.0 # intercept
-    σ = 0.2 # observation noise
-    ρ = [0.2; 0.2; 0.2; 0.2; 0.2; 0.2] # measurement errors
+    r = r₀*ones(N) # measurement errors
 
     # simulate latent (not observed!) values
 
-    xclean = [0.3; 0.5; 0.9; 1.1; 1.7; 2.5]
+    xclean = rand(rg, Uniform(-3, 3), N)
 
     yclean = α.*xclean .+ β
 
 
     # simulate observed values
 
-    x̄ = xclean + randn(rg, length(xclean)) .* ρ
+    x̄ = xclean + randn(rg, length(xclean)) .* r
 
     y = yclean + randn(rg, length(yclean)) * σ
 
   
-    return x̄, y, σ, ρ
+    return x̄, y, σ, r
 
 end

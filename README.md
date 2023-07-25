@@ -8,18 +8,22 @@
 ```
 using Plots, LinearRegressionInputUncetainty, StatsFuns # load packages and code
 
-x̄, y, σ, ρ = simulatemeasurements(); # generate toy data
+let 
 
-scatter(x̄, y, aspect_ratio=:equal, title="data")
+    x̄, y, σ, r = simulatemeasurements(σ = 0.5, r₀ = 0.5); # generate toy data
+    
+    scatter(x̄, y, title="data")
 
-m(α) =  marginalloglikelihood(α ; x̄ = x̄, y = y, σ = σ, ρ = ρ) # auxiliary function
+    m(α) =  marginalloglikelihood(α; x̄ = x̄, y = y, σ = σ, r = r) # auxiliary function
 
-αrange = -5:0.001:20
+    αrange = -7:0.01:7
 
-logprob = m.(αrange)
+    logprob = m.(αrange)
 
-prob = exp.(logprob .- logsumexp(logprob))
+    prob = exp.(logprob .- logsumexp(logprob))
 
-plot(αrange, prob, title="posterior of slope α")
+    plot(αrange, prob, ticks = -7:1:7)
+    
+end
 
 ```
