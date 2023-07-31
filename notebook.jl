@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.26
+# v0.19.27
 
 using Markdown
 using InteractiveUtils
@@ -18,7 +18,7 @@ end
 using LinearRegressionInputUncetainty, PlutoUI, StatsFuns, Plots, Distributions, GaussianVariationalInference
 
 # ╔═╡ 2c44261d-a5a6-4a14-b9f4-1b21641afdf1
-md"Statsmeet - Errors in Variables"
+md"""# Statsmeet - Errors in Variables"""
 
 # ╔═╡ c4458d1b-563d-4a38-9156-f7f7032ffcf0
 html"""
@@ -33,13 +33,16 @@ html"""
 
 
 # ╔═╡ 4e0474ad-3535-452b-93a5-fd35dc7e4d3c
-md"""# Example"""
+md"""### Example"""
 
 # ╔═╡ 3ad7e776-9e6e-4162-8a11-164da6b975a0
 md"""Top slider controls σ, bottom slider controls r"""
 
 # ╔═╡ 6415f81e-d6bd-421d-86b6-2b941b8ee513
 @bind σ Slider(0.01:0.05:5.0, show_value=true)
+
+# ╔═╡ 28a1d92f-1b94-4a35-84f3-254e6bb87db9
+
 
 # ╔═╡ edbb5da1-f49f-46c7-88b6-eee308bcbaea
 @bind r₀ Slider(0.01:0.05:5.0, show_value=true)
@@ -78,7 +81,7 @@ let
 end
 
 # ╔═╡ d90e32f3-478d-4744-bc58-c0047bd828ef
-md"""## Example with VI (slow)"""
+md"""### Example with VI (slow)"""
 
 # ╔═╡ c3d3390e-9e56-4199-85b1-87dc592760e3
 @bind σvi Slider(0.01:0.05:2.0, show_value=true)
@@ -105,7 +108,7 @@ let
 
 	
 	# plot data
-	plot(legend=false)
+	plot()
 	p1 = scatter(x̄, y, xlims=[-6; 6], ylims=[-9, 10], size=(1000,500))
 
 	# plot sampled lines
@@ -121,7 +124,7 @@ let
 	plot!(xrange, 2*xrange .+ 1, color="black", linewidth=4, label="true")
 		
 	# plot posterior slope
-	p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500))
+	p2 = plot(αrange, prob, ticks = -7:1:7, size=(1000,500), legend=false)
 
 
 	# arrange plots next to each other
@@ -1657,14 +1660,15 @@ version = "1.4.1+0"
 
 # ╔═╡ Cell order:
 # ╟─2c44261d-a5a6-4a14-b9f4-1b21641afdf1
-# ╠═d2cc0522-2add-11ee-3e3b-e7dbe9ebca8d
+# ╟─d2cc0522-2add-11ee-3e3b-e7dbe9ebca8d
 # ╟─c4458d1b-563d-4a38-9156-f7f7032ffcf0
 # ╟─0b20e660-2e4a-40ad-a494-f8defa1a2513
 # ╟─4e0474ad-3535-452b-93a5-fd35dc7e4d3c
 # ╟─3ad7e776-9e6e-4162-8a11-164da6b975a0
 # ╟─6415f81e-d6bd-421d-86b6-2b941b8ee513
+# ╟─28a1d92f-1b94-4a35-84f3-254e6bb87db9
 # ╟─edbb5da1-f49f-46c7-88b6-eee308bcbaea
-# ╟─aac2fe01-def9-4b7b-b8f8-5a1a78b7aad6
+# ╠═aac2fe01-def9-4b7b-b8f8-5a1a78b7aad6
 # ╟─d90e32f3-478d-4744-bc58-c0047bd828ef
 # ╟─c3d3390e-9e56-4199-85b1-87dc592760e3
 # ╟─ef25a426-81c8-4817-bf35-54c31319acfc
